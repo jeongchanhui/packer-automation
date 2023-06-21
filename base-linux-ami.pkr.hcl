@@ -19,7 +19,7 @@ source "amazon-ebs" "base-linux-ami" {
   source_ami    = data.amazon-ami.amzn2-lts.id
   vpc_id        = var.vpc_id
   subnet_id     = var.vpc_subnet_id
-  instance_type = "t3.small"
+  instance_type = "t2.micro"
   ssh_username  = "ec2-user"
   tags = {
     Name          = "amzn2-base-ami-${local.timestamp}"
