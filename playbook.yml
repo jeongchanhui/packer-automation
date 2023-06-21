@@ -1,0 +1,24 @@
+---
+- name: Start Playbook
+  hosts: all
+  become: yes
+  tasks:
+    - name: Set Asia/Seoul timezone
+      timezone:
+        name: Asia/Seoul
+
+    - name: Install git
+      yum:
+        name: git
+        state: latest
+
+    - name: Enable extras
+      command: amazon-linux-extras install -y nginx1.12
+      args:
+        creates: /etc/nginx/nginx.conf
+
+    - name: Start Nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: yes
