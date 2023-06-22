@@ -5,14 +5,29 @@ on:
     branches:
       - main
 jobs:
-  build:
+  packer:
     runs-on: ubuntu-latest
+    name: Run Packer
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Initialize Packer Template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: init
+
       - name: Validate Packer template
         run: packer validate base-linux-ami.pkr.hcl
 
       - name: Build AMI
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: packer build base-linux-ami.pkr.hcl
+        env:
+          PACKER_LOG: 1
