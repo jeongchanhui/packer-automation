@@ -25,9 +25,9 @@ jobs:
           command: init
 
       - name: Validate Packer template
-        run: packer validate base-linux-ami.pkr.hcl
+        run: packer validate packer/base-linux-ami.pkr.hcl
 
       - name: Build AMI
-        run: packer build base-linux-ami.pkr.hcl
+        run: packer build packer/base-linux-ami.pkr.hcl
         env:
           PACKER_LOG: 1
