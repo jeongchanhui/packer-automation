@@ -40,7 +40,15 @@ build {
     playbook_file = "playbook/playbook.yml"
     use_proxy     = "false"
     user          = "ec2-user"
+  }
 
+  post-processor "manifest" {
+    output     = "manifest.json"
+    strip_path = true
+  }
+
+  post-processor "shell-local" {
+    inline = ["jq -r '.builds[0].artifact_id' manifest.json | cut -d ':' -f 2 > ami_id.txt"]
   }
 }
 
