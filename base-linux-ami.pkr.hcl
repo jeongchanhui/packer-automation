@@ -19,10 +19,12 @@ source "amazon-ebs" "base-linux-ami" {
   region        = "ap-northeast-2"
   ami_name      = "amzn2-base-ami-${local.timestamp}"
   source_ami    = data.amazon-ami.amzn2-lts.id
-  vpc_id        = "vpc-00bf96a2d0fa5a389"
-  subnet_id     = "subnet-0ed75f0335ec40641"
+  vpc_id        = "vpc-07635186cc0801e54"
+  subnet_id     = "subnet-0d50ecc923f481000"
+  key_name      = "chnh"
   instance_type = "t2.micro"
   ssh_username  = "ec2-user"
+  ssh_timeout   = "5m"
   tags = {
     Name          = "amzn2-base-ami-${local.timestamp}"
     Base_AMI_ID   = "{{ .SourceAMI }}"
