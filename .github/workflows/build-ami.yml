@@ -7,7 +7,6 @@ on:
 jobs:
   packer:
     runs-on: ubuntu-latest
-    run-name: ${{ github.actor }} is learning GitHub Actions
     name: Run Packer
     steps:
       - name: Checkout Repository
