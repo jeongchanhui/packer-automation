@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-
 jobs:
   build:
-    runs-on: linux-latest
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -19,10 +17,10 @@ jobs:
           packer_version: "1.9.1"
 
       - name: Validate Packer template
-        run: packer validate base-linux-ami.pkr.hcl
+        run: packer validate template.json
 
       - name: Build AMI
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: packer build base-linux-ami.pkr.hcl
+        run: packer build template.json
