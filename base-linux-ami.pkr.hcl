@@ -14,11 +14,11 @@ data "amazon-ami" "amzn2-lts" {
 }
 
 source "amazon-ebs" "base-linux-ami" {
-  region        = "ap-northeast-2"
-  ami_name      = "amzn2-base-ami-${local.timestamp}"
-  source_ami    = data.amazon-ami.amzn2-lts.id
-  vpc_id        = var.vpc_id
-  subnet_id     = var.vpc_subnet_id
+  region     = "ap-northeast-2"
+  ami_name   = "amzn2-base-ami-${local.timestamp}"
+  source_ami = data.amazon-ami.amzn2-lts.id
+  /* vpc_id        = "{{env 'VPC_ID'}}"
+  subnet_id     = "{{env 'VPC_SUBNET_ID'}}" */
   instance_type = "t2.micro"
   ssh_username  = "ec2-user"
   tags = {
