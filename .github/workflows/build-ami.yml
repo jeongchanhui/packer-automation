@@ -4,20 +4,10 @@ on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Packer
-        uses: hashicorp/setup-packer@v1
-        with:
-          packer_version: "1.9.1"
-
       - name: Validate Packer template
         run: packer validate base-linux-ami.pkr.hcl
 
