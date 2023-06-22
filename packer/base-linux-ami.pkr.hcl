@@ -13,12 +13,14 @@ data "amazon-ami" "amzn2-lts" {
   owners      = ["amazon"]
 }
 
+
+
 source "amazon-ebs" "base-linux-ami" {
-  region     = "ap-northeast-2"
-  ami_name   = "amzn2-base-ami-${local.timestamp}"
-  source_ami = data.amazon-ami.amzn2-lts.id
-  /* vpc_id        = "{{env 'VPC_ID'}}"
-  subnet_id     = "{{env 'VPC_SUBNET_ID'}}" */
+  region        = "ap-northeast-2"
+  ami_name      = "amzn2-base-ami-${local.timestamp}"
+  source_ami    = data.amazon-ami.amzn2-lts.id
+  vpc_id        = "vpc-00bf96a2d0fa5a389"
+  subnet_id     = "subnet-0ed75f0335ec40641"
   instance_type = "t2.micro"
   ssh_username  = "ec2-user"
   tags = {
@@ -35,7 +37,7 @@ build {
   ]
 
   provisioner "ansible" {
-    playbook_file = "playbook.yml"
+    playbook_file = "playbook/playbook.yml"
     use_proxy     = "false"
     user          = "ec2-user"
 
