@@ -14,7 +14,6 @@ data "amazon-ami" "amzn2-lts" {
 }
 
 
-
 source "amazon-ebs" "base-linux-ami" {
   region        = "ap-northeast-2"
   ami_name      = "amzn2-base-ami-${local.timestamp}"
@@ -45,10 +44,6 @@ build {
   post-processor "manifest" {
     output     = "manifest.json"
     strip_path = true
-  }
-
-  post-processor "shell-local" {
-    inline = ["jq -r '.builds[0].artifact_id' manifest.json | cut -d ':' -f 2 > ami_id.txt"]
   }
 }
 
