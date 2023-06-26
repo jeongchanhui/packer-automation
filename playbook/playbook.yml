@@ -12,7 +12,7 @@
         name: git
         state: latest
 
-    - name: Enable extras
+    - name: Install Nginx
       command: amazon-linux-extras install -y nginx1.12
       args:
         creates: /etc/nginx/nginx.conf
